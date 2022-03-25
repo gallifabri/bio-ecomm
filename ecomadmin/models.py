@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinLengthValidator
 
 
 class GrupoProducto(models.Model):
@@ -70,7 +71,7 @@ class PresentacionProducto(models.Model):
 
 
 	class Meta:
-		unique_together = (('grupo', 'id_producto'),)
+		unique_together = (('id_grupo', 'id_producto'),)
 
 	def __str__(self):
 		return self.descripcion
