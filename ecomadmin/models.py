@@ -26,7 +26,7 @@ class ClasificacionProducto(models.Model):
 		return f'{self.id} - {self.descripcion}'
 
 
-class Producto(models.Model):
+class ProductoCatalogo(models.Model):
 	"""
 	To do:
 	Ver tabla para vincular formulas con presentaciones
@@ -52,8 +52,8 @@ class Producto(models.Model):
 	
 
 
-class PresentacionProducto(models.Model):
-	producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+class Producto(models.Model):
+	producto_catalogo = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
 	# presentacion_descripcion 
 
 	# Campos migrados de VFP
