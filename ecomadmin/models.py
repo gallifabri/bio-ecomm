@@ -43,6 +43,7 @@ class ProductoCatalogo(models.Model):
 
 
 	"""
+	## comment
    
 
 	# Campos migrados de VFP
