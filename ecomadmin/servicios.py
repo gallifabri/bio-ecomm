@@ -71,3 +71,15 @@ def importar_dbf_clasificacion_producto():
 		if not ClasificacionProducto.objects.filter(id=id).exists():
 			ClasificacionProducto.objects.create(id=id, descripcion=descripcion)
 
+
+def importar_dbf_formula_presentacion():
+	for record in DBF('tablas/formucab.dbf'):
+		id = record['CODFORMULA']
+		descripcion = record['DESCFORMU']
+		presentacion1 = record['PRESEN2']
+		presentacion2 = record['PRESEN3']
+		presentacion3 = record['PRESEN4']
+		presentacion4 = record['PRESEN5']
+
+		if not Formula.objects.filter(id=id).exists():
+			Formula.objects.create(id=id, descripcion=descripcion)

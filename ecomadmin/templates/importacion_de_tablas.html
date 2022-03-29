@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block encabezado %}Migración de Tabla: producto.dbf{% endblock %}
+{% block contenido %}
+	<form action="{% url 'importacion_de_tablas' %}" method="post">
+		{% csrf_token %}
+		<h5>Productos:</h5>
+		<button class="btn btn-info" type="submit" name="clase" value="producto">Importar</button>
+		<button class="btn btn-danger" type="submit" name="clase" value="borrar_productos">Borrar todos</button>
+		<br><br>
+		<h5>Grupo de Productos:</h5>
+		<button class="btn btn-info" type="submit" name="clase" value="grupo_producto">Importar</button>
+		<br><br>
+		<h5>Línea de Productos:</h5>
+		<button class="btn btn-info" type="submit" name="clase" value="linea_producto">Importar</button>
+		<br><br>
+		<h5>Tipo de Productos:</h5>
+		<button class="btn btn-info" type="submit" name="clase" value="tipo_producto">Importar</button>
+		<br><br>
+		<h5>Clasifiación de Productos:</h5>
+		<button class="btn btn-info" type="submit" name="clase" value="clasificacion_producto">Importar</button>
+		<br><br>
+		<h5>Formulas:</h5>
+		<button class="btn btn-info" type="submit" name="clase" value="formula_presentacion">Importar</button>
+	</form>
+{% endblock %}

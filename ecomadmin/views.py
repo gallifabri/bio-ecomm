@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 
 # Create your views here.
 def index(request):
-	return render(request, 'blank.html', context={})
+	return render(request, 'index.html', context={})
 
 
 def importacion_de_tablas(request):
@@ -20,6 +20,8 @@ def importacion_de_tablas(request):
 			importar_dbf_linea_producto()
 		elif request.POST.get('clase') == 'clasificacion_producto':
 			importar_dbf_clasificacion_producto()
+		elif request.POST.get('clase') == 'formula_presentacion':
+			importar_dbf_formula_presentacion()
 
 	return render(request, 'importacion_de_tablas.html', context={})
 
@@ -64,3 +66,11 @@ def tabla_clasificacion_productos(request):
 	context = {'clasificaciones' : clasificaciones}
 
 	return render(request, 'tabla_clasificacion_productos.html', context=context)
+
+def tabla_formula_presentacion(request):
+	formula = Formula.objects.all().order_by('id_formula')
+	context = {'formula' : formula}
+
+	return render(request, 'tabla_formula_presentacion.html', context=context)
+
+  

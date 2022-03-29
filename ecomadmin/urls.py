@@ -11,4 +11,5 @@ urlpatterns = [
     path('productos/tabla_grupo_productos', views.tabla_grupo_productos, name='tabla_grupo_productos'),
     path('productos/tabla_linea_productos', views.tabla_linea_productos, name='tabla_linea_productos'),
     path('productos/tabla_clasificacion_productos', views.tabla_clasificacion_productos, name='tabla_clasificacion_productos'),
+    path('productos/tabla_formula_presentacion', views.tabla_formula_presentacion, name='tabla_formula_presentacion'),
 ]
