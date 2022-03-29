@@ -26,15 +26,8 @@ class ClasificacionProducto(models.Model):
 		return f'{self.id} - {self.descripcion}'
 
 
-class Formula(models.Model):
-	id = models.CharField(max_length=3, validators=[MinLengthValidator(3)], primary_key=True)
-	descripcion = models.CharField(max_length=200)
 
-
-	def __str__(self):
-		return f'{self.id} - {self.descripcion}'
-
-class CatalogoProducto(models.Model):
+class ProductoCatalogo(models.Model):
 	"""
 	To do:
 	Ver tabla para vincular formulas con presentaciones
@@ -60,8 +53,9 @@ class CatalogoProducto(models.Model):
 	
 
 
-class PresentacionProducto(models.Model):
-	producto = models.ForeignKey(CatalogoProducto, on_delete=models.CASCADE)
+
+class Producto(models.Model):
+	producto_catalogo = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
 	# presentacion_descripcion 
   #	id_formula = models.ForeignKey(Formula, on_delete=models.PROTECT, null=True)
   # presentacion = models.CharField(Formula, max_length=5, validators=[MinLengthValidator(5)])
