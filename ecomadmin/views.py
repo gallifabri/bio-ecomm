@@ -22,8 +22,6 @@ def importacion_de_tablas(request):
 			importar_dbf_linea_producto()
 		elif request.POST.get('clase') == 'clasificacion_producto':
 			importar_dbf_clasificacion_producto()
-		elif request.POST.get('clase') == 'formula_presentacion':
-			importar_dbf_formula_presentacion()
 
 	return render(request, 'importacion_de_tablas.html', context={})
 

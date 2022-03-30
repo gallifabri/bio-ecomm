@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load humanize %}
 {% block encabezado %}Producto: {{ producto.descripcion }}{% endblock %}
-{% block content %}
+{% block contenido %}
 	<a href="{% url 'productos' %}">Productos</a> > 
 	<strong>{{ producto.grupo.id_grupo }}{{ producto.id_producto }}</strong>
 	<br>
@@ -22,6 +22,10 @@
 		<div class="row">
 			<div class="col-3"><strong>Descripción: </strong></div>
 			<div class="col-4">{{ producto.descripcion }}</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Formula: </strong></div>
+			<div class="col-4">{{ producto.producto_catalogo }}</div>
 		</div>
 		<div class="row">
 			<div class="col-3"><strong>Existencia Eusebio Ayala: </strong></div>

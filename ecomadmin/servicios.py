@@ -5,6 +5,7 @@ from .models import *
 def eliminar_todo_productos():
 	Producto.objects.all().delete()
 
+
 def parse_fecha(fecha):
 	if fecha == '':
 		return None
@@ -13,7 +14,6 @@ def parse_fecha(fecha):
 	
 def leer_campo_numerico_con_null(entrada, leyenda):
 	return entrada[leyenda] if entrada[leyenda] is not None else 0
-
 
 
 def cargar_tabla_productos():
@@ -45,24 +45,25 @@ def cargar_tabla_productos():
 	Producto.objects.bulk_create(records)
 
 
-
-
 def cargar_tabla_formula():
+	ProductoCatalogo.objects.all().delete()
+
 	for record in DBF('tablas/formucab.dbf'):
-		nuevo_producto_catalogo = ProductoCatalogo.create()
+		nuevo_producto_catalogo = ProductoCatalogo.objects.create()
+		nuevo_producto_catalogo.codigo_formula = record['CODFORMULA']
+		nuevo_producto_catalogo.descripcion = record['DESCFORMU']
+		nuevo_producto_catalogo.save()
 
-		for presen in ['PRESEN2', 'PRESEN3', 'PRESEN4', 'PRESEN5']:
+		for col in ['PRESEN2', 'PRESEN3', 'PRESEN4', 'PRESEN5']:
+			presen = record[col]
+			cod_grupo = presen[:2]
+			cod_producto = presen[2:]
 
-			if presen is not None:
-				cod_grupo = presen[:1]
-				cod_producto = presen[2:]
-
-				producto = Producto.objects().get(id_grupo=codgrupo, id_producto=producto)
+			if presen != '' and Producto.objects.filter(grupo=cod_grupo, id_producto=cod_producto).exists():
+				producto = Producto.objects.get(grupo=cod_grupo, id_producto=cod_producto)
 
 				producto.producto_catalogo = nuevo_producto_catalogo
 				producto.save()
-
-
 
 
 def cargar_grupo_productos():
@@ -92,14 +93,3 @@ def importar_dbf_clasificacion_producto():
 			ClasificacionProducto.objects.create(id=id, descripcion=descripcion)
 
 
-def importar_dbf_formula_presentacion():
-	for record in DBF('tablas/formucab.dbf'):
-		id = record['CODFORMULA']
-		descripcion = record['DESCFORMU']
-		presentacion1 = record['PRESEN2']
-		presentacion2 = record['PRESEN3']
-		presentacion3 = record['PRESEN4']
-		presentacion4 = record['PRESEN5']
-
-		if not Formula.objects.filter(id=id).exists():
-			Formula.objects.create(id=id, descripcion=descripcion)

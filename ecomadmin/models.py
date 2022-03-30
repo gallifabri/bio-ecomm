@@ -52,13 +52,18 @@ class ProductoCatalogo(models.Model):
 
 	"""
 	## comment
-   
+    
 
 	# Campos migrados de VFP
 
 	## codigo de formula
+	codigo_formula = models.CharField(max_length=3, validators=[MinLengthValidator(3)], null=True)
+	descripcion = models.CharField(max_length=200)
 	linea = models.ForeignKey(LineaProducto, on_delete=models.PROTECT, null=True) # SET NOT NULL
 	clasificacion = models.ForeignKey(ClasificacionProducto, on_delete=models.SET_NULL, null=True)
+
+	def __str__(self):
+		return f'{self.codigo_formula} - {self.descripcion}'
 
 
 	
@@ -74,7 +79,7 @@ class Producto(models.Model):
 	# Campos migrados de VFP
 	grupo = models.ForeignKey(GrupoProducto, on_delete=models.PROTECT)
 	id_producto = models.CharField(max_length=3, validators=[MinLengthValidator(3)])
-	nombre_sis = models.CharField(max_length=200)
+	descripcion = models.CharField(max_length=200)
 	existencia_eu = models.IntegerField(default=0)
 	existencia_av = models.IntegerField(default=0)
 	existencia_mr = models.IntegerField(default=0)
@@ -83,6 +88,8 @@ class Producto(models.Model):
 	en_oferta = models.BooleanField(default=False)
 	precio_oferta = models.IntegerField(default=0)
 	tasa = models.IntegerField(choices=[(0,0),(5,5),(10,10)])
+	linea = models.ForeignKey(LineaProducto, on_delete=models.PROTECT, null=True) # SET NOT NULL
+	clasificacion = models.ForeignKey(ClasificacionProducto, on_delete=models.SET_NULL, null=True)
 
 
 	class Meta:
