@@ -14,6 +14,8 @@ def importacion_de_tablas(request):
 			cargar_tabla_productos()
 		elif request.POST.get('clase') == 'borrar_productos':
 			eliminar_todo_productos()
+		elif request.POST.get('clase') == 'cargar_formula':
+			cargar_tabla_formula()	
 		elif request.POST.get('clase') == 'grupo_producto':
 			cargar_grupo_productos()
 		elif request.POST.get('clase') == 'linea_producto':

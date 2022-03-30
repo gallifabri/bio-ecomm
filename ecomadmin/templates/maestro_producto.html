@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block encabezado %}Maestro de Productos{% endblock %}
+{% block header %}
+<link href="/static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+	<div class="card shadow mb-4">
+        <div class="card-header py-3">
+     		<form>
+     			<!-- Filtro Grupo -->
+      			<span class="dropdown">
+					<a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: inline-block; padding: 5px; padding-top: 0; padding-bottom: 0">
+					    Grupo
+					</a>
+					<div class="dropdown-menu" style="max-height: 280px; overflow-y: auto;" aria-labelledby="dropdownMenuButton">
+					  	{% for grupo in grupos %}
+							<a class="dropdown-item" data-value="{{ grupo.id_grupo }}" href="#">{{grupo.id_grupo}} - {{grupo.descripcion}}</a>
+						{% endfor %}
+					</div>
+				</span>
+      			<input type="text" name="grupo" style="width: 50px" id="grupo-input" value={{grupo}}>
+      			&nbsp;
+
+      			<!-- Boton filtrar -->
+      			<button type="submit" class="btn btn-outline-primary" style="height: 32px; padding-top: 3px; display: inline;">Filtrar &nbsp;<i class="fas fa-sm fa-filter"></i></button>
+
+      			<!-- Funcion Borrar Filtros -->
+      			<span style="float: right;"><a href="{% url 'productos' %}">Borrar Filtros</a></span>
+      		</form>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+	            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+				    	<tr>
+				      		<th>Código</th>
+				      		<th>Descripción</th>
+				      	</tr>
+				    </thead>
+			      	<tbody>
+						{% for producto in productos %}
+							<tr>
+								<td>{{ producto.grupo__id_grupo }}{{ producto.id_producto }}</td>
+								<td><a href="{% url 'detalle_producto' pk=producto.grupo__id_grupo sk=producto.id_producto %}">{{ producto.descripcion }}</a></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% block endbody %}
+
+<!-- Page level plugins -->
+<script src="/static/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="/static/js/demo/datatables-demo.js"></script>
+
+<script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
+
+<script>
+     $(document).ready(function(){
+        $('.dropdown-toggle').dropdown()
+
+        $( ".dropdown-item" ).click(function() {
+        	$('#grupo-input').val($(this).data("value"))
+		});
+    });
+
+</script>
+{% endblock %}
+
+{% endblock %}
+

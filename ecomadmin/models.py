@@ -26,6 +26,14 @@ class ClasificacionProducto(models.Model):
 		return f'{self.id} - {self.descripcion}'
 
 
+class Formula(models.Model):
+	id = models.CharField(max_length=3, validators=[MinLengthValidator(3)], primary_key=True)
+	descripcion = models.CharField(max_length=200)
+
+	def __str__(self):
+		return f'{self.id} - {self.descripcion}'
+
+
 
 class ProductoCatalogo(models.Model):
 	"""
@@ -47,6 +55,8 @@ class ProductoCatalogo(models.Model):
    
 
 	# Campos migrados de VFP
+
+	## codigo de formula
 	linea = models.ForeignKey(LineaProducto, on_delete=models.PROTECT, null=True) # SET NOT NULL
 	clasificacion = models.ForeignKey(ClasificacionProducto, on_delete=models.SET_NULL, null=True)
 
@@ -56,15 +66,13 @@ class ProductoCatalogo(models.Model):
 
 
 class Producto(models.Model):
-	producto_catalogo = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
+	producto_catalogo = models.ForeignKey(ProductoCatalogo, on_delete=models.CASCADE, null=True)
 	# presentacion_descripcion 
-  #	id_formula = models.ForeignKey(Formula, on_delete=models.PROTECT, null=True)
-  # presentacion = models.CharField(Formula, max_length=5, validators=[MinLengthValidator(5)])
-
-
+  	#id_formula = models.ForeignKey(Formula, on_delete=models.PROTECT, null=True)
+ 
 
 	# Campos migrados de VFP
-	id_grupo = models.ForeignKey(GrupoProducto, on_delete=models.PROTECT)
+	grupo = models.ForeignKey(GrupoProducto, on_delete=models.PROTECT)
 	id_producto = models.CharField(max_length=3, validators=[MinLengthValidator(3)])
 	nombre_sis = models.CharField(max_length=200)
 	existencia_eu = models.IntegerField(default=0)
@@ -78,7 +86,7 @@ class Producto(models.Model):
 
 
 	class Meta:
-		unique_together = (('id_grupo', 'id_producto'),)
+		unique_together = (('grupo', 'id_producto'),)
 
 	def __str__(self):
 		return self.descripcion

@@ -45,6 +45,26 @@ def cargar_tabla_productos():
 	Producto.objects.bulk_create(records)
 
 
+
+
+def cargar_tabla_formula():
+	for record in DBF('tablas/formucab.dbf'):
+		nuevo_producto_catalogo = ProductoCatalogo.create()
+
+		for presen in ['PRESEN2', 'PRESEN3', 'PRESEN4', 'PRESEN5']:
+
+			if presen is not None:
+				cod_grupo = presen[:1]
+				cod_producto = presen[2:]
+
+				producto = Producto.objects().get(id_grupo=codgrupo, id_producto=producto)
+
+				producto.producto_catalogo = nuevo_producto_catalogo
+				producto.save()
+
+
+
+
 def cargar_grupo_productos():
 	for record in DBF('tablas/grupopro.dbf'):
 		id_grupo = record['CODIGO']
