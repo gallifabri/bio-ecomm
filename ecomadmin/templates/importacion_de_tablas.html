@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
-{% block encabezado %}Migración de Tabla: producto.dbf{% endblock %}
+{% block encabezado %}
+{% endblock %}
 {% block contenido %}
+<h1>Importación de Tablas:</h1>
 	<form action="{% url 'importacion_de_tablas' %}" method="post">
 		{% csrf_token %}
 		<h5>Productos:</h5>
