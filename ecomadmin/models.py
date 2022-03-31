@@ -35,7 +35,7 @@ class Formula(models.Model):
 
 
 
-class ProductoCatalogo(models.Model):
+class ProductoGenerico(models.Model):
 	"""
 	To do:
 	Ver tabla para vincular formulas con presentaciones
@@ -71,7 +71,7 @@ class ProductoCatalogo(models.Model):
 
 
 class Producto(models.Model):
-	producto_catalogo = models.ForeignKey(ProductoCatalogo, on_delete=models.CASCADE, null=True)
+	producto_generico = models.ForeignKey(ProductoGenerico, on_delete=models.CASCADE, null=True)
 	# presentacion_descripcion 
   	#id_formula = models.ForeignKey(Formula, on_delete=models.PROTECT, null=True)
  

@@ -23,7 +23,7 @@ def importacion_de_tablas(request):
 		elif request.POST.get('clase') == 'clasificacion_producto':
 			importar_dbf_clasificacion_producto()
 
-	return render(request, 'importacion_de_tablas.html', context={})
+	return render(request, 'importacion_de_tablas.html', context={'tab' : 'migraciones'})
 
 
 def maestro_producto(request):
@@ -35,7 +35,7 @@ def maestro_producto(request):
 	else:
 		productos = Producto.objects.filter(grupo__id_grupo=grupo).values('grupo__id_grupo', 'id_producto', 'descripcion')
 
-	context = {'productos' : productos, 'grupo' : grupo, 'grupos' : grupos}
+	context = {'productos' : productos, 'grupo' : grupo, 'grupos' : grupos, 'tab' : 'productos'}
 
 	return render(request, 'maestro_producto.html', context=context)
 
@@ -49,28 +49,24 @@ def detalle_producto(request, pk, sk):
 
 def tabla_grupo_productos(request):
 	grupos = GrupoProducto.objects.all().order_by('id_grupo')
-	context = {'grupos' : grupos}
+	context = {'grupos' : grupos, 'collapse' : 'tablas'}
 
 	return render(request, 'tabla_grupo_productos.html', context=context)
 
 
 def tabla_linea_productos(request):
 	lineas = LineaProducto.objects.all().order_by('id')
-	context = {'lineas' : lineas}
+	context = {'lineas' : lineas, 'collapse' : 'tablas'}
 
 	return render(request, 'tabla_linea_productos.html', context=context)
 
 
 def tabla_clasificacion_productos(request):
 	clasificaciones = ClasificacionProducto.objects.all().order_by('id')
-	context = {'clasificaciones' : clasificaciones}
+	context = {'clasificaciones' : clasificaciones, 'collapse' : 'tablas'}
 
 	return render(request, 'tabla_clasificacion_productos.html', context=context)
 
-def tabla_formula_presentacion(request):
-	formula = Formula.objects.all().order_by('id_formula')
-	context = {'formula' : formula}
 
-	return render(request, 'tabla_formula_presentacion.html', context=context)
 
   

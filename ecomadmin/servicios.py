@@ -17,7 +17,6 @@ def leer_campo_numerico_con_null(entrada, leyenda):
 
 
 def cargar_tabla_productos():
-	
 	grupos = GrupoProducto.objects.all()
 	grupos_dict = {grupo.id_grupo : grupo for grupo in grupos}
 	lineas = LineaProducto.objects.all()
@@ -40,19 +39,19 @@ def cargar_tabla_productos():
 						clasificacion=clasificaciones_dict[record['CLASIFICA']],				
 						precio_oferta=leer_campo_numerico_con_null(record, 'VTAOFERTA'),
 						)
-				for record in DBF('tablas/producto.dbf')]
+				for record in DBF('tablas/producto.dbf') if int(record['CODGRUPO']) < 60]
 
 	Producto.objects.bulk_create(records)
 
 
 def cargar_tabla_formula():
-	ProductoCatalogo.objects.all().delete()
+	ProductoGenerico.objects.all().delete()
 
 	for record in DBF('tablas/formucab.dbf'):
-		nuevo_producto_catalogo = ProductoCatalogo.objects.create()
-		nuevo_producto_catalogo.codigo_formula = record['CODFORMULA']
-		nuevo_producto_catalogo.descripcion = record['DESCFORMU']
-		nuevo_producto_catalogo.save()
+		nuevo_producto_generico = ProductoGenerico.objects.create()
+		nuevo_producto_generico.codigo_formula = record['CODFORMULA']
+		nuevo_producto_generico.descripcion = record['DESCFORMU']
+		nuevo_producto_generico.save()
 
 		for col in ['PRESEN2', 'PRESEN3', 'PRESEN4', 'PRESEN5']:
 			presen = record[col]
@@ -62,7 +61,7 @@ def cargar_tabla_formula():
 			if presen != '' and Producto.objects.filter(grupo=cod_grupo, id_producto=cod_producto).exists():
 				producto = Producto.objects.get(grupo=cod_grupo, id_producto=cod_producto)
 
-				producto.producto_catalogo = nuevo_producto_catalogo
+				producto.producto_generico = nuevo_producto_generico
 				producto.save()
 
 
