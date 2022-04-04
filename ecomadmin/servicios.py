@@ -39,7 +39,7 @@ def cargar_tabla_productos():
 						clasificacion=clasificaciones_dict[record['CLASIFICA']],				
 						precio_oferta=leer_campo_numerico_con_null(record, 'VTAOFERTA'),
 						)
-				for record in DBF('tablas/producto.dbf') if int(record['CODGRUPO']) < 60]
+				for record in DBF('tablas/producto.dbf') if int(record['CODGRUPO']) < 60 or int(record['CODGRUPO']) == 70]
 
 	Producto.objects.bulk_create(records)
 
