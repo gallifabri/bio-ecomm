@@ -63,7 +63,7 @@ class ProductoGenerico(models.Model):
 	clasificacion = models.ForeignKey(ClasificacionProducto, on_delete=models.SET_NULL, null=True)
 
 	def __str__(self):
-		return f'{self.codigo_formula} - {self.descripcion}'
+		return f'{self.codigo} - {self.descripcion}'
 
 
 	
@@ -96,6 +96,6 @@ class Producto(models.Model):
 		unique_together = (('grupo', 'id_producto'),)
 
 	def __str__(self):
-		return self.descripcion
+		return f'{self.grupo.id_grupo}{self.id_producto} - {self.descripcion}'
 
 

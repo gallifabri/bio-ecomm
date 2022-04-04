@@ -57,7 +57,12 @@ def maestro_producto_generico(request):
 
 def detalle_producto_generico(request, pk):
 	producto = get_object_or_404(ProductoGenerico, codigo=pk)
-	context = {'producto': producto, 'collapse' : 'producto'}
+	presentaciones = None
+
+	if Producto.objects.filter(producto_generico=producto).exists():
+		presentaciones = Producto.objects.filter(producto_generico=producto)
+
+	context = {'producto': producto, 'collapse' : 'producto', 'presentaciones' : presentaciones}
 
 	return render(request, 'detalle_producto_generico.html', context=context)
 

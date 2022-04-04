@@ -3,7 +3,7 @@
 {% block encabezado %}Producto: {{ producto.descripcion }}{% endblock %}
 {% block contenido %}
 	<a href="{% url 'productos' %}">Productos</a> > 
-	<strong>{{ producto.grupo.id_grupo }}{{ producto.id_producto }}</strong>
+	<strong>{{ producto }}</strong>
 	<br>
 	<br>
 	<div class="container">
@@ -24,8 +24,14 @@
 			<div class="col-4">{{ producto.descripcion }}</div>
 		</div>
 		<div class="row">
-			<div class="col-3"><strong>Formula: </strong></div>
-			<div class="col-4">{{ producto.producto_generico }}</div>
+			<div class="col-3"><strong>Producto Generico: </strong></div>
+			<div class="col-4">
+				{% if producto.producto_generico %}
+				<a href="{% url 'detalle_producto_generico' pk=producto.producto_generico.codigo %}">{{ producto.producto_generico }}</a>
+				{% else %}
+				<p>Indefinido</p>
+				{% endif %}
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-3"><strong>Existencia Eusebio Ayala: </strong></div>
