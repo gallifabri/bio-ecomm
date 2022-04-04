@@ -35,16 +35,32 @@ def maestro_producto(request):
 	else:
 		productos = Producto.objects.filter(grupo__id_grupo=grupo).values('grupo__id_grupo', 'id_producto', 'descripcion')
 
-	context = {'productos' : productos, 'grupo' : grupo, 'grupos' : grupos, 'tab' : 'productos'}
+	context = {'productos' : productos, 'grupo' : grupo, 'grupos' : grupos, 'collapse' : 'producto'}
 
 	return render(request, 'maestro_producto.html', context=context)
 
 
 def detalle_producto(request, pk, sk):
 	producto = get_object_or_404(Producto, grupo=GrupoProducto.objects.get(id_grupo=pk), id_producto=sk)
-	context = {'producto': producto}
+	context = {'producto': producto, 'collapse' : 'producto'}
 
 	return render(request, 'detalle_producto.html', context=context)
+
+
+def maestro_producto_generico(request):
+	productos = ProductoGenerico.objects.all().values('codigo', 'descripcion')
+	
+	context = {'productos' : productos, 'collapse' : 'producto'}
+
+	return render(request, 'maestro_producto_generico.html', context=context)
+
+
+def detalle_producto_generico(request, pk):
+	producto = get_object_or_404(ProductoGenerico, codigo=pk)
+	context = {'producto': producto, 'collapse' : 'producto'}
+
+	return render(request, 'detalle_producto_generico.html', context=context)
+
 
 
 def tabla_grupo_productos(request):

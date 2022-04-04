@@ -57,7 +57,7 @@ class ProductoGenerico(models.Model):
 	# Campos migrados de VFP
 
 	## codigo de formula
-	codigo_formula = models.CharField(max_length=3, validators=[MinLengthValidator(3)], null=True)
+	codigo = models.CharField(max_length=3, validators=[MinLengthValidator(3)], primary_key=True)
 	descripcion = models.CharField(max_length=200)
 	linea = models.ForeignKey(LineaProducto, on_delete=models.PROTECT, null=True) # SET NOT NULL
 	clasificacion = models.ForeignKey(ClasificacionProducto, on_delete=models.SET_NULL, null=True)
@@ -71,7 +71,7 @@ class ProductoGenerico(models.Model):
 
 
 class Producto(models.Model):
-	producto_generico = models.ForeignKey(ProductoGenerico, on_delete=models.CASCADE, null=True)
+	producto_generico = models.ForeignKey(ProductoGenerico, on_delete=models.SET_NULL, null=True)
 	# presentacion_descripcion 
   	#id_formula = models.ForeignKey(Formula, on_delete=models.PROTECT, null=True)
  

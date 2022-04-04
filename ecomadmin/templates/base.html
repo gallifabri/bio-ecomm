@@ -70,12 +70,19 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-        
-            <li class="nav-item {% if tab == 'productos' %}active{% endif %}">
-                <a class="nav-link" href="{% url 'productos' %}"> 
+
+            <li class="nav-item {% if collapse == 'producto' %}active{% endif %}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProductos"
+                    aria-expanded="true" aria-controls="collapseProductos">
                     <i class="fas fa-fw fa-box"></i>
                     <span>Productos</span>
                 </a>
+                <div id="collapseProductos" class="collapse {% if collapse == 'producto' %}show{% endif %}" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{% url 'maestro_producto_generico' %}">Genéricos</a>
+                        <a class="collapse-item" href="{% url 'productos' %}">Por Presentación</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->

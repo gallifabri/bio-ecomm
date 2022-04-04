@@ -48,10 +48,10 @@ def cargar_tabla_formula():
 	ProductoGenerico.objects.all().delete()
 
 	for record in DBF('tablas/formucab.dbf'):
-		nuevo_producto_generico = ProductoGenerico.objects.create()
+		nuevo_producto_generico = ProductoGenerico.objects.create(codigo=record['CODFORMULA'])
 		nuevo_producto_generico.codigo_formula = record['CODFORMULA']
 		nuevo_producto_generico.descripcion = record['DESCFORMU']
-		nuevo_producto_generico.save()
+		
 
 		for col in ['PRESEN2', 'PRESEN3', 'PRESEN4', 'PRESEN5']:
 			presen = record[col]
@@ -59,10 +59,16 @@ def cargar_tabla_formula():
 			cod_producto = presen[2:]
 
 			if presen != '' and Producto.objects.filter(grupo=cod_grupo, id_producto=cod_producto).exists():
-				producto = Producto.objects.get(grupo=cod_grupo, id_producto=cod_producto)
+				presentacion = Producto.objects.get(grupo=cod_grupo, id_producto=cod_producto)
 
+				nuevo_producto_generico.linea = presentacion.linea
+				nuevo_producto_generico.clasificacion = presentacion.clasificacion
+
+				producto = Producto.objects.get(grupo=cod_grupo, id_producto=cod_producto)
 				producto.producto_generico = nuevo_producto_generico
 				producto.save()
+
+		nuevo_producto_generico.save()
 
 
 def cargar_grupo_productos():
