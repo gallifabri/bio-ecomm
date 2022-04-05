@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block encabezado %}Presentación: {{ presentacion.descripcion }}{% endblock %}
+{% block contenido %}
+	<a href="{% url 'presentaciones' %}">Presentaciones</a> > 
+	<strong>{{ presentacion }}</strong>
+	<br>
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-3"><strong>Linea: </strong></div>
+			<div class="col-4">{{ presentacion.linea }}</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Código de Grupo: </strong></div>
+			<div class="col-4">{{ presentacion.grupo }}</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Código de Presentación: </strong></div>
+			<div class="col-4">{{ presentacion.codigos }}</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Descripción: </strong></div>
+			<div class="col-4">{{ presentacion.descripcion }}</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Producto: </strong></div>
+			<div class="col-4">
+				{% if presentacion.producto %}
+				<a href="{% url 'detalle_producto' pk=presentacion.producto.codigo %}">{{ presentacion.producto }}</a>
+				{% else %}
+				<p>Indefinido</p>
+				{% endif %}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Existencia Eusebio Ayala: </strong></div>
+			<div class="col-4">{{ presentacion.existencia_eu }}</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Existencia Aviadores: </strong></div>
+			<div class="col-4">{{ presentacion.existencia_av }}</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Existencia MRA: </strong></div>
+			<div class="col-4">{{ presentacion.existencia_mr }}</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Existencia Mariscal López: </strong></div>
+			<div class="col-4">{{ presentacion.existencia_ml }}</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Precio sin IVA: </strong></div>
+			<div class="col-4">	&#x20B2 {{ presentacion.precio | intcomma}}</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>En Oferta: </strong></div>
+			<div class="col-4">{% if presentacion.en_oferta %}Si{% else %}No{% endif %}</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Tasa: </strong></div>
+			<div class="col-4">{{ presentacion.tasa }}%</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Clasificación:</strong></div>
+			<div class="col-4">
+				{% if presentacion.clasificacion %}
+					{{ presentacion.clasificacion }}
+				{% endif %}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Precio de Oferta: </strong></div>
+			<div class="col-4"> &#x20B2 {{ presentacion.precio_oferta | intcomma }}</div>
+		</div>
+	</div>
+{% endblock %}
