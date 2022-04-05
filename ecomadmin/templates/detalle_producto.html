@@ -3,75 +3,42 @@
 {% block encabezado %}Producto: {{ producto.descripcion }}{% endblock %}
 {% block contenido %}
 	<a href="{% url 'productos' %}">Productos</a> > 
-	<strong>{{ producto }}</strong>
+	<strong>{{ producto.descripcion }}</strong>
 	<br>
 	<br>
 	<div class="container">
 		<div class="row">
-			<div class="col-3"><strong>Linea: </strong></div>
-			<div class="col-4">{{ producto.linea }}</div>
-		</div>
-		<div class="row">
-			<div class="col-3"><strong>Código de Grupo: </strong></div>
-			<div class="col-4">{{ producto.grupo }}</div>
-		</div>
-		<div class="row">
-			<div class="col-3"><strong>Código de Producto: </strong></div>
-			<div class="col-4">{{ producto.id_producto }}</div>
+			<div class="col-3"><strong>Código: </strong></div>
+			<div class="col-4">{{ producto.codigo }}</div>
 		</div>
 		<div class="row">
 			<div class="col-3"><strong>Descripción: </strong></div>
 			<div class="col-4">{{ producto.descripcion }}</div>
 		</div>
 		<div class="row">
-			<div class="col-3"><strong>Producto Generico: </strong></div>
-			<div class="col-4">
-				{% if producto.producto_generico %}
-				<a href="{% url 'detalle_producto_generico' pk=producto.producto_generico.codigo %}">{{ producto.producto_generico }}</a>
-				{% else %}
-				<p>Indefinido</p>
-				{% endif %}
-			</div>
+			<div class="col-3"><strong>Línea: </strong></div>
+			<div class="col-4">{{ producto.linea }}</div>
 		</div>
 		<div class="row">
-			<div class="col-3"><strong>Existencia Eusebio Ayala: </strong></div>
-			<div class="col-4">{{ producto.existencia_eu }}</div>
+			<div class="col-3"><strong>Clasificación: </strong></div>
+			<div class="col-4">{{ producto.clasificacion }}</div>
 		</div>
-		<div class="row">
-			<div class="col-3"><strong>Existencia Aviadores: </strong></div>
-			<div class="col-4">{{ producto.existencia_av }}</div>
-		</div>
-		<div class="row">
-			<div class="col-3"><strong>Existencia MRA: </strong></div>
-			<div class="col-4">{{ producto.existencia_mr }}</div>
-		</div>
-		<div class="row">
-			<div class="col-3"><strong>Existencia Mariscal López: </strong></div>
-			<div class="col-4">{{ producto.existencia_ml }}</div>
-		</div>
-		<div class="row">
-			<div class="col-3"><strong>Precio sin IVA: </strong></div>
-			<div class="col-4">	&#x20B2 {{ producto.precio | intcomma}}</div>
-		</div>
-		<div class="row">
-			<div class="col-3"><strong>En Oferta: </strong></div>
-			<div class="col-4">{% if producto.en_oferta %}Si{% else %}No{% endif %}</div>
-		</div>
-		<div class="row">
-			<div class="col-3"><strong>Tasa: </strong></div>
-			<div class="col-4">{{ producto.tasa }}%</div>
-		</div>
-		<div class="row">
-			<div class="col-3"><strong>Clasificación:</strong></div>
-			<div class="col-4">
-				{% if producto.clasificacion %}
-					{{ producto.clasificacion }}
-				{% endif %}
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-3"><strong>Precio de Oferta: </strong></div>
-			<div class="col-4"> &#x20B2 {{ producto.precio_oferta | intcomma }}</div>
-		</div>
+		<br>
+		{% if presentaciones %}
+			<h5>Presentaciones</h5>
+			{% for presentacion in presentaciones %}
+				<div class="row">
+					<div class="col-6">
+						<strong>
+							<a href="{% url 'detalle_presentacion' pk=presentacion.grupo.id_grupo sk=presentacion.codigo %}">
+								{{ presentacion }}
+							</a>
+						</strong>
+					</div>
+				</div>
+			{% endfor %}
+		{% endif %}
+		<br>
+		<a class="text-secondary" href="{% url 'editar_producto' pk=producto.codigo %}"><i class="fas fa-fw fa-edit text-info"></i>Editar</a>
 	</div>
 {% endblock %}

@@ -26,16 +26,7 @@ class ClasificacionProducto(models.Model):
 		return f'{self.id} - {self.descripcion}'
 
 
-class Formula(models.Model):
-	id = models.CharField(max_length=3, validators=[MinLengthValidator(3)], primary_key=True)
-	descripcion = models.CharField(max_length=200)
-
-	def __str__(self):
-		return f'{self.id} - {self.descripcion}'
-
-
-
-class ProductoGenerico(models.Model):
+class Producto(models.Model):
 	"""
 	To do:
 	Ver tabla para vincular formulas con presentaciones
@@ -50,35 +41,27 @@ class ProductoGenerico(models.Model):
 	detalle (text field)
 
 
-	"""
-	## comment
-    
+	"""    
 
 	# Campos migrados de VFP
-
-	## codigo de formula
 	codigo = models.CharField(max_length=3, validators=[MinLengthValidator(3)], primary_key=True)
 	descripcion = models.CharField(max_length=200)
 	linea = models.ForeignKey(LineaProducto, on_delete=models.PROTECT, null=True) # SET NOT NULL
 	clasificacion = models.ForeignKey(ClasificacionProducto, on_delete=models.SET_NULL, null=True)
 
+	# Nuevos campos
+
 	def __str__(self):
 		return f'{self.codigo} - {self.descripcion}'
 
 
-	
 
-
-
-class Producto(models.Model):
-	producto_generico = models.ForeignKey(ProductoGenerico, on_delete=models.SET_NULL, null=True)
-	# presentacion_descripcion 
-  	#id_formula = models.ForeignKey(Formula, on_delete=models.PROTECT, null=True)
- 
+class Presentacion(models.Model):
+	producto = models.ForeignKey(Producto, on_delete=models.SET_NULL, null=True)
 
 	# Campos migrados de VFP
 	grupo = models.ForeignKey(GrupoProducto, on_delete=models.PROTECT)
-	id_producto = models.CharField(max_length=3, validators=[MinLengthValidator(3)])
+	codigo = models.CharField(max_length=3, validators=[MinLengthValidator(3)])
 	descripcion = models.CharField(max_length=200)
 	existencia_eu = models.IntegerField(default=0)
 	existencia_av = models.IntegerField(default=0)
@@ -91,11 +74,10 @@ class Producto(models.Model):
 	linea = models.ForeignKey(LineaProducto, on_delete=models.PROTECT, null=True) # SET NOT NULL
 	clasificacion = models.ForeignKey(ClasificacionProducto, on_delete=models.SET_NULL, null=True)
 
-
 	class Meta:
-		unique_together = (('grupo', 'id_producto'),)
+		unique_together = (('grupo', 'codigo'),)
 
 	def __str__(self):
-		return f'{self.grupo.id_grupo}{self.id_producto} - {self.descripcion}'
+		return f'{self.grupo.id_grupo}{self.codigo} - {self.descripcion}'
 
 

@@ -3,7 +3,7 @@ from .models import *
 
 
 def eliminar_todo_productos():
-	Producto.objects.all().delete()
+	Presentacion.objects.all().delete()
 
 
 def parse_fecha(fecha):
@@ -25,9 +25,9 @@ def cargar_tabla_productos():
 	clasificaciones_dict = {clasificacion.id : clasificacion for clasificacion in clasificaciones}
 	clasificaciones_dict[''] = None
 		
-	records = [Producto(grupo=grupos_dict[record['CODGRUPO']],
+	records = [Presentacion(grupo=grupos_dict[record['CODGRUPO']],
 						linea=lineas_dict[record['LINEA']],
-						id_producto=record['PRODUCTO'], 
+						codigo=record['PRODUCTO'], 
 						descripcion=record['DESCRIP'],		
 						existencia_eu=leer_campo_numerico_con_null(record, 'EXISTENEU'),
 						existencia_av=leer_campo_numerico_con_null(record, 'EXISTENAV'),
@@ -41,14 +41,14 @@ def cargar_tabla_productos():
 						)
 				for record in DBF('tablas/producto.dbf') if int(record['CODGRUPO']) < 60 or int(record['CODGRUPO']) == 70]
 
-	Producto.objects.bulk_create(records)
+	Presentacion.objects.bulk_create(records)
 
 
 def cargar_tabla_formula():
-	ProductoGenerico.objects.all().delete()
+	Producto.objects.all().delete()
 
 	for record in DBF('tablas/formucab.dbf'):
-		nuevo_producto_generico = ProductoGenerico.objects.create(codigo=record['CODFORMULA'])
+		nuevo_producto_generico = Producto.objects.create(codigo=record['CODFORMULA'])
 		nuevo_producto_generico.codigo_formula = record['CODFORMULA']
 		nuevo_producto_generico.descripcion = record['DESCFORMU']
 		
@@ -58,14 +58,14 @@ def cargar_tabla_formula():
 			cod_grupo = presen[:2]
 			cod_producto = presen[2:]
 
-			if presen != '' and Producto.objects.filter(grupo=cod_grupo, id_producto=cod_producto).exists():
-				presentacion = Producto.objects.get(grupo=cod_grupo, id_producto=cod_producto)
+			if presen != '' and Presentacion.objects.filter(grupo=cod_grupo, codigo=cod_producto).exists():
+				presentacion = Presentacion.objects.get(grupo=cod_grupo, codigo=cod_producto)
 
 				nuevo_producto_generico.linea = presentacion.linea
 				nuevo_producto_generico.clasificacion = presentacion.clasificacion
 
-				producto = Producto.objects.get(grupo=cod_grupo, id_producto=cod_producto)
-				producto.producto_generico = nuevo_producto_generico
+				producto = Presentacion.objects.get(grupo=cod_grupo, codigo=cod_producto)
+				producto.producto = nuevo_producto_generico
 				producto.save()
 
 		nuevo_producto_generico.save()

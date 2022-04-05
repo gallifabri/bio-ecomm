@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop.apps.ShopConfig',
     'django.contrib.humanize',
+    'bootstrapform',
     'ecomadmin.apps.EcomadminConfig',
 ]
 

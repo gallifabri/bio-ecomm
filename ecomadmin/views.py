@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import *
 from .servicios import *
+from .forms import *
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
@@ -26,45 +27,54 @@ def importacion_de_tablas(request):
 	return render(request, 'importacion_de_tablas.html', context={'tab' : 'migraciones'})
 
 
-def maestro_producto(request):
+def maestro_presentaciones(request):
 	grupos = GrupoProducto.objects.all().order_by('id_grupo')
 	grupo = request.GET.get('grupo', '')
 
 	if grupo == "":
-		productos = Producto.objects.all().values('grupo__id_grupo', 'id_producto', 'descripcion')
+		presentaciones = Presentacion.objects.all().values('grupo__id_grupo', 'codigo', 'descripcion')
 	else:
-		productos = Producto.objects.filter(grupo__id_grupo=grupo).values('grupo__id_grupo', 'id_producto', 'descripcion')
+		presentaciones = Presentacion.objects.filter(grupo__id_grupo=grupo).values('grupo__id_grupo', 'codigo', 'descripcion')
 
-	context = {'productos' : productos, 'grupo' : grupo, 'grupos' : grupos, 'collapse' : 'producto'}
+	context = {'presentaciones' : presentaciones, 'grupo' : grupo, 'grupos' : grupos, 'collapse' : 'producto'}
 
-	return render(request, 'maestro_producto.html', context=context)
+	return render(request, 'maestro_presentaciones.html', context=context)
 
 
-def detalle_producto(request, pk, sk):
-	producto = get_object_or_404(Producto, grupo=GrupoProducto.objects.get(id_grupo=pk), id_producto=sk)
-	context = {'producto': producto, 'collapse' : 'producto'}
+def detalle_presentacion(request, pk, sk):
+	presentacion = get_object_or_404(Presentacion, grupo=GrupoProducto.objects.get(id_grupo=pk), codigo=sk)
+	context = {'presentacion': presentacion, 'collapse' : 'producto'}
+
+	return render(request, 'detalle_presentacion.html', context=context)
+
+
+def maestro_productos(request):
+	productos = Producto.objects.all().values('codigo', 'descripcion')
+	
+	context = {'productos' : productos, 'collapse' : 'producto'}
+
+	return render(request, 'maestro_productos.html', context=context)
+
+
+def detalle_producto(request, pk):
+	producto = get_object_or_404(Producto, codigo=pk)
+	presentaciones = None
+
+	if Presentacion.objects.filter(producto=producto).exists():
+		presentaciones = Presentacion.objects.filter(producto=producto)
+
+	context = {'producto': producto, 'collapse' : 'producto', 'presentaciones' : presentaciones}
 
 	return render(request, 'detalle_producto.html', context=context)
 
 
-def maestro_producto_generico(request):
-	productos = ProductoGenerico.objects.all().values('codigo', 'descripcion')
+def editar_producto(request, pk):
+	producto = get_object_or_404(Producto, codigo=pk)
+	form = ProductoForm(instance=producto)
+
+	context = {'form' : form}
 	
-	context = {'productos' : productos, 'collapse' : 'producto'}
-
-	return render(request, 'maestro_producto_generico.html', context=context)
-
-
-def detalle_producto_generico(request, pk):
-	producto = get_object_or_404(ProductoGenerico, codigo=pk)
-	presentaciones = None
-
-	if Producto.objects.filter(producto_generico=producto).exists():
-		presentaciones = Producto.objects.filter(producto_generico=producto)
-
-	context = {'producto': producto, 'collapse' : 'producto', 'presentaciones' : presentaciones}
-
-	return render(request, 'detalle_producto_generico.html', context=context)
+	return render(request, 'editar_producto.html', context=context)
 
 
 
