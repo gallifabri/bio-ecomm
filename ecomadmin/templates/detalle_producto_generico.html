@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block encabezado %}Producto: {{ producto.descripcion }}{% endblock %}
+{% block contenido %}
+	<a href="{% url 'maestro_producto_generico' %}">Productos</a> > 
+	<strong>{{ producto.descripcion }}</strong>
+	<br>
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-3"><strong>Código: </strong></div>
+			<div class="col-4">{{ producto.codigo }}</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Descripción: </strong></div>
+			<div class="col-4">{{ producto.descripcion }}</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Línea: </strong></div>
+			<div class="col-4">{{ producto.linea }}</div>
+		</div>
+		<div class="row">
+			<div class="col-3"><strong>Clasificación: </strong></div>
+			<div class="col-4">{{ producto.clasificacion }}</div>
+		</div>
+		<br>
+		{% if presentaciones %}
+			<h5>Presentaciones</h5>
+			{% for presentacion in presentaciones %}
+				<div class="row">
+					<div class="col-6">
+						<strong>
+							<a href="{% url 'detalle_producto' pk=presentacion.grupo.id_grupo sk=presentacion.id_producto %}">
+								{{ presentacion }}
+							</a>
+						</strong>
+					</div>
+				</div>
+			{% endfor %}
+		{% endif %}
+	</div>
+{% endblock %}
