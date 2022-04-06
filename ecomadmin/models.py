@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinLengthValidator
+from ckeditor.fields import RichTextField
 
 
 class GrupoProducto(models.Model):
@@ -38,7 +39,7 @@ class Producto(models.Model):
 	categoria
 	subcategoria (puede ser varios, igual que especies)
 
-	detalle (text field)
+	
 
 
 	"""    
@@ -50,6 +51,10 @@ class Producto(models.Model):
 	clasificacion = models.ForeignKey(ClasificacionProducto, on_delete=models.SET_NULL, null=True)
 
 	# Nuevos campos
+	# detalle (text field)
+	detalle = RichTextField(blank=True, null=True)
+	imagen = models.ImageField(upload_to='static/imagenes/',blank=True, null=True)
+
 
 	def __str__(self):
 		return f'{self.codigo} - {self.descripcion}'

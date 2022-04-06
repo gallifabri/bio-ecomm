@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'django.contrib.humanize',
     'bootstrapform',
+    'ckeditor',
     'ecomadmin.apps.EcomadminConfig',
 ]
 
@@ -104,7 +105,50 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'height':'500px',
+        # tab key conversion space number
+        'tabSpaces': 4,
+        # Toolbar Style
+        'toolbar': 'Custom',
+        # Toolbar buttons
+        'toolbar_Custom': [
+            ['Styles', 'Format', 'Font', 'FontSize'],
+            ['Cut', 'Copy', 'Paste', '-', 'Print', 'SpellChecker', 'Scayt'],
+            ['Smiley', 'CodeSnippet', 'SpecialChar'], 
+            ['Bold', 'Italic', 'Underline', 'RemoveFormat', 'Blockquote'],
+            ['TextColor', 'BGColor'],
+            ['Link', 'Unlink'],
+            ['NumberedList', 'BulletedList'],
+            ['Maximize', 'About', 'pbckcode']
+        ],
 
+        # 'toolbar': (
+         #   ['div', 'Source', '-', 'Save', 'NewPage', 'Preview', '-', 'Templates'],
+         #   ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],
+         #   ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+         #   ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript'],
+         #   ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'Blockquote'],
+         #   ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+         #   ['Link', 'Unlink', 'Anchor'],
+         #   ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'],
+         #  
+         
+
+        # Add Code Block Plug-ins
+        'extraPlugins': ','.join(['codesnippet']),
+        'codeSnippet_languages': {
+            'bash': 'Bash',
+            'css': 'CSS',
+            'django': 'Django',
+            'html': 'HTML',
+            'javascript': 'JavaScript',
+            'php': 'PHP',
+            'python': 'Python',
+        }
+    }
+}
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 

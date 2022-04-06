@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
-{% block encabezado %}
-{% endblock %}
+{% block encabezado %}Importación de Tablas:{% endblock %}
 {% block contenido %}
-<h1>Importación de Tablas:</h1>
 	<form action="{% url 'importacion_de_tablas' %}" method="post">
 		{% csrf_token %}
 		<h5>Productos:</h5>

@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
-{% load bootstrap %}
+{% block encabezado %}Editar Producto:{% endblock %}
+{% load bootstrap %} 
 {% block contenido %}    
     {{ form | bootstrap }}
+    <form>
+       {{ producto_form }}
+       <input type="submit"/>
+    </form>
+    {% load static %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 {% endblock %}
