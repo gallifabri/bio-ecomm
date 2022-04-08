@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block encabezado %}Editar Producto:{% endblock %}
+{% load bootstrap %} 
+
+{% block contenido %}    
+    <form method="post">
+      {% csrf_token %}
+      <table>
+        {{ form | bootstrap }}
+      </table>
+      <div>
+        {{ form.codigo }}
+      </div>
+      <br>
+      <button class="btn btn-info">Save</button>
+    </form>
+{% load static %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+{% block endbody %}
+<script type="text/javascript">
+
+
+</script>
+
+{% endblock %}
+
+{% endblock %}

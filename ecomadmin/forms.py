@@ -10,7 +10,25 @@ from .models import *
 #        fields = ['codigo', 'descripcion', 'linea', 'clasificacion', 'detalle']
 
 class ProductoForm(forms.ModelForm):
-    detalle = forms.CharField(widget = CKEditorWidget())
+    # detalle = forms.CharField(widget = CKEditorWidget())
+
+    def __init__(self, *args, **kwargs):
+        super(ProductoForm, self).__init__(*args, **kwargs)
+
+        self.fields['linea'].widget.attrs['value'] = self.instance.linea
+        self.fields['linea'].widget.attrs['disabled'] = 'disabled'
+
     class Meta:
         model = Producto
         fields = "__all__"
+    codigo = forms.CharField(widget=forms.TextInput(attrs={'readonly':'readonly'}))
+    descripcion = forms.CharField(widget=forms.TextInput(attrs={'readonly':'readonly'}))
+
+
+
+
+
+    # class Meta:
+    #     model = Users
+    #     fields = ['email', 'first_name', 'last_name', 'birth_date']
+    # email = forms.CharField(widget=forms.TextInput(attrs={'readonly':'readonly'}))

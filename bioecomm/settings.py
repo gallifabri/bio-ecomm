@@ -115,25 +115,25 @@ CKEDITOR_CONFIGS = {
         # Toolbar buttons
         'toolbar_Custom': [
             ['Styles', 'Format', 'Font', 'FontSize'],
-            ['Cut', 'Copy', 'Paste', '-', 'Print', 'SpellChecker', 'Scayt'],
+            ['Cut', 'Copy', 'Paste', 'Preview', '-', 'Print', 'SpellChecker', 'Scayt'],
             ['Smiley', 'CodeSnippet', 'SpecialChar'], 
-            ['Bold', 'Italic', 'Underline', 'RemoveFormat', 'Blockquote'],
+            ['Bold', 'Italic', 'Underline', 'Strike'], 
+            ['Find', 'Replace'],
+            ['Subscript', 'Superscript'],
+            ['SelectAll', 'RemoveFormat', 'Blockquote', 'Outdent', 'Indent'],
             ['TextColor', 'BGColor'],
-            ['Link', 'Unlink'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink', 'Anchor'],
             ['NumberedList', 'BulletedList'],
+            ['Image', 'Flash', 'Table', 'HorizontalRule', 'PageBreak'],
             ['Maximize', 'About', 'pbckcode']
+
         ],
 
         # 'toolbar': (
-         #   ['div', 'Source', '-', 'Save', 'NewPage', 'Preview', '-', 'Templates'],
-         #   ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],
-         #   ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
-         #   ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript'],
-         #   ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'Blockquote'],
-         #   ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-         #   ['Link', 'Unlink', 'Anchor'],
-         #   ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'],
-         #  
+         #   
+         #   ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'], 
+         #   ,
          
 
         # Add Code Block Plug-ins

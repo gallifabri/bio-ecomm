@@ -1,8 +1,11 @@
-from django.shortcuts import render
 from .models import *
 from .servicios import *
 from .forms import *
+from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 
 # Create your views here.
 def index(request):
@@ -70,11 +73,23 @@ def detalle_producto(request, pk):
 
 def editar_producto(request, pk):
 	producto = get_object_or_404(Producto, codigo=pk)
-	form = ProductoForm(instance=producto)
 
-	context = {'form' : form}
+	if request.method == 'POST':
+		form = ProductoForm(request.POST)
+		 if form.is_valid():
+		 	producto.codigo = form.['codigo']
+            producto.save()
+
+            return HttpResponseRedirect(reverse('all-borrowed') )
+
+  	 else:
+        form = ProductoForm(initial={'codigo': proposed_renewal_date})
+
+    	context = {'form': form, 'producto': producto}
 	
 	return render(request, 'editar_producto.html', context=context)
+
+
 
 
 

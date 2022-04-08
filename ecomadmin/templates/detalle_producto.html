@@ -24,6 +24,11 @@
 			<div class="col-4">{{ producto.clasificacion }}</div>
 		</div>
 		<br>
+		<div class="row">
+			<div class="col-3"><strong>Especificaciones: </strong></div>
+			<div class="col-6">{{ producto.detalle | safe }}</div>
+		</div>
+		<br>
 		{% if presentaciones %}
 			<h5>Presentaciones</h5>
 			{% for presentacion in presentaciones %}
