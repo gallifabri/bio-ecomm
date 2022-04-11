@@ -130,6 +130,7 @@ CKEDITOR_CONFIGS = {
 
         ],
 
+
         # 'toolbar': (
          #   
          #   ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'], 
@@ -149,6 +150,8 @@ CKEDITOR_CONFIGS = {
         }
     }
 }
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 

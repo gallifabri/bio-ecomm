@@ -75,17 +75,17 @@ def editar_producto(request, pk):
 	producto = get_object_or_404(Producto, codigo=pk)
 
 	if request.method == 'POST':
-		form = ProductoForm(request.POST)
-		 if form.is_valid():
-		 	producto.codigo = form.['codigo']
-            producto.save()
+		form = ProductoForm(request.POST, request.FILES, instance=producto)
 
-            return HttpResponseRedirect(reverse('all-borrowed') )
+		if form.is_valid():
+			form.save()
 
-  	 else:
-        form = ProductoForm(initial={'codigo': proposed_renewal_date})
+			return HttpResponseRedirect(reverse('detalle_producto', args=[producto.codigo]) )
 
-    	context = {'form': form, 'producto': producto}
+	else:
+		form = ProductoForm(instance=producto)
+
+	context = {'form': form, 'producto': producto}
 	
 	return render(request, 'editar_producto.html', context=context)
 

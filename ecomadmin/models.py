@@ -51,7 +51,6 @@ class Producto(models.Model):
 	clasificacion = models.ForeignKey(ClasificacionProducto, on_delete=models.SET_NULL, null=True)
 
 	# Nuevos campos
-	# detalle (text field)
 	detalle = RichTextField(blank=True, null=True)
 	imagen = models.ImageField(upload_to='static/imagenes/',blank=True, null=True)
 

@@ -1,12 +1,31 @@
 {% extends 'base.html' %}
 {% block encabezado %}Editar Producto:{% endblock %}
 {% load bootstrap %} 
-{% block contenido %}    
-    {{ form | bootstrap }}
-   """"""<form>
-        {{ producto_form }}
-        <input type="submit"/>
-    """"""</form>
+{% block contenido %}   
+    <div class="container">
+        <div class="row">
+            <div class="col-3"><strong>Código: </strong></div>
+            <div class="col-4">{{ producto.codigo }}</div>
+        </div>
+        <div class="row">
+            <div class="col-3"><strong>Descripción: </strong></div>
+            <div class="col-4">{{ producto.descripcion }}</div>
+        </div>
+        <div class="row">
+            <div class="col-3"><strong>Línea: </strong></div>
+            <div class="col-4">{{ producto.linea }}</div>
+        </div>
+        <div class="row">
+            <div class="col-3"><strong>Clasificación: </strong></div>
+            <div class="col-4">{{ producto.clasificacion }}</div>
+        </div>
+        <br>
+        <form method="post" enctype='multipart/form-data'>
+            {% csrf_token %}
+            {{ form | bootstrap }}
+            <input class="btn btn-info" type="submit"/>
+        </form>
+    </div>
     {% load static %}
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>

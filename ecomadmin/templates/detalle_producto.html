@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load static %}
 {% block encabezado %}Producto: {{ producto.descripcion }}{% endblock %}
 {% block contenido %}
 	<a href="{% url 'productos' %}">Productos</a> > 
@@ -8,20 +9,33 @@
 	<br>
 	<div class="container">
 		<div class="row">
-			<div class="col-3"><strong>Código: </strong></div>
-			<div class="col-4">{{ producto.codigo }}</div>
-		</div>
-		<div class="row">
-			<div class="col-3"><strong>Descripción: </strong></div>
-			<div class="col-4">{{ producto.descripcion }}</div>
-		</div>
-		<div class="row">
-			<div class="col-3"><strong>Línea: </strong></div>
-			<div class="col-4">{{ producto.linea }}</div>
-		</div>
-		<div class="row">
-			<div class="col-3"><strong>Clasificación: </strong></div>
-			<div class="col-4">{{ producto.clasificacion }}</div>
+			<div class="col-3">
+				{% if producto.imagen %}
+					<img class="img-thumbnail" style="width: 200px" src="{{ producto.imagen.url }}" />
+				{% else %}
+					<img class="img-thumbnail" style="width: 200px" src="{% static 'imagenes/product-placeholder.png' %}" />
+				{% endif %}
+			</div>
+			<div class="col-9">
+
+
+				<div class="row">
+					<div class="col-3"><strong>Código: </strong></div>
+					<div class="col-4">{{ producto.codigo }}</div>
+				</div>
+				<div class="row">
+					<div class="col-3"><strong>Descripción: </strong></div>
+					<div class="col-4">{{ producto.descripcion }}</div>
+				</div>
+				<div class="row">
+					<div class="col-3"><strong>Línea: </strong></div>
+					<div class="col-4">{{ producto.linea }}</div>
+				</div>
+				<div class="row">
+					<div class="col-3"><strong>Clasificación: </strong></div>
+					<div class="col-4">{{ producto.clasificacion }}</div>
+				</div>
+			</div>
 		</div>
 		<br>
 		<div class="row">
