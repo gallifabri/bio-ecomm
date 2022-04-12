@@ -39,6 +39,17 @@
 		</div>
 		<br>
 		<div class="row">
+			<div class="col-3"><strong>Especies: </strong></div>
+			<div class="col-6">
+				{% if producto.especies.all.count > 0 %}
+					{{ producto.especies_cs }}
+				{% else %}
+					<p>Sin especificar</p>
+				{% endif %}
+			</div>
+		</div>
+		<br>
+		<div class="row">
 			<div class="col-3"><strong>Especificaciones: </strong></div>
 			<div class="col-6">{{ producto.detalle | safe }}</div>
 		</div>

@@ -5,8 +5,10 @@ from .models import *
 
 
 class ProductoForm(forms.ModelForm):
+    especies = forms.ModelMultipleChoiceField(Especie.objects.all(), widget=forms.CheckboxSelectMultiple)
+
     class Meta:
         model = Producto
-        fields = ["detalle", "imagen"]
+        fields = ['detalle', 'imagen', 'especies']
     
 

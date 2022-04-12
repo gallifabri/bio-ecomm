@@ -4,7 +4,8 @@ from .forms import *
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
 # Create your views here.
@@ -90,8 +91,7 @@ def editar_producto(request, pk):
 	return render(request, 'editar_producto.html', context=context)
 
 
-
-
+############## TABLAS ##################
 
 def tabla_grupo_productos(request):
 	grupos = GrupoProducto.objects.all().order_by('id_grupo')
@@ -114,5 +114,31 @@ def tabla_clasificacion_productos(request):
 	return render(request, 'tabla_clasificacion_productos.html', context=context)
 
 
+def tabla_especies(request):
+	especies = Especie.objects.all().order_by('descripcion')
+	context = {'especies' : especies, 'collapse' : 'tablas'}
+
+	return render(request, 'tabla_especies.html', context=context)
+
+
+class EspecieCreateView(CreateView):
+	model = Especie
+	fields = ['descripcion']
+	context = {'collapse' : 'tablas'}
+	template_name = "especie_form.html"
+
+
+class EspecieUpdateView(UpdateView):
+	model = Especie
+	fields = ['descripcion']
+	template_name_suffix = '_update_form'
+	context = {'collapse' : 'tablas'}
+	template_name = "especie_update_form.html"
+	success_url = reverse_lazy('tabla_especies')
 
   
+class EspecieDeleteView(DeleteView):
+	model = Especie
+	success_url = reverse_lazy('tabla_especies')
+	context = {'collapse' : 'tablas'}
+	template_name = "especie_confirm_delete.html"

@@ -27,23 +27,24 @@ class ClasificacionProducto(models.Model):
 		return f'{self.id} - {self.descripcion}'
 
 
+class Especie(models.Model):
+	descripcion = models.CharField(max_length=20, unique=True)
+
+	def get_absolute_url(self):
+		return f"especies"
+
+	def __str__(self):
+		return self.descripcion
+
+
 class Producto(models.Model):
 	"""
-	To do:
-	Ver tabla para vincular formulas con presentaciones
-
 	Crear campos:
-	nombre
-	sumario
-	especies
-	categoria
-	subcategoria (puede ser varios, igual que especies)
-
-	
-
-
+		nombre
+		sumario
+		categoria
+		subcategoria (puede ser varios, igual que especies)
 	"""    
-
 	# Campos migrados de VFP
 	codigo = models.CharField(max_length=3, validators=[MinLengthValidator(3)], primary_key=True)
 	descripcion = models.CharField(max_length=200)
@@ -53,11 +54,14 @@ class Producto(models.Model):
 	# Nuevos campos
 	detalle = RichTextField(blank=True, null=True)
 	imagen = models.ImageField(upload_to='static/imagenes/',blank=True, null=True)
+	especies = models.ManyToManyField(Especie)
 
+
+	def especies_cs(self):
+		return ", ".join([str(especie) for especie in self.especies.all()])
 
 	def __str__(self):
 		return f'{self.codigo} - {self.descripcion}'
-
 
 
 class Presentacion(models.Model):
