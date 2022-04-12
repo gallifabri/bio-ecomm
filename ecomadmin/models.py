@@ -36,12 +36,15 @@ class Especie(models.Model):
 	def __str__(self):
 		return self.descripcion
 
+	class Meta:
+		ordering = ["descripcion"]
+
 
 class Producto(models.Model):
 	"""
 	Crear campos:
 		nombre
-		sumario
+		descripcion_corta
 		categoria
 		subcategoria (puede ser varios, igual que especies)
 	"""    

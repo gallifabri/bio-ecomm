@@ -4,29 +4,65 @@
 {% block contenido %}   
     <div class="container">
         <div class="row">
-            <div class="col-3"><strong>Código: </strong></div>
-            <div class="col-4">{{ producto.codigo }}</div>
-        </div>
-        <div class="row">
-            <div class="col-3"><strong>Descripción: </strong></div>
-            <div class="col-4">{{ producto.descripcion }}</div>
-        </div>
-        <div class="row">
-            <div class="col-3"><strong>Línea: </strong></div>
-            <div class="col-4">{{ producto.linea }}</div>
-        </div>
-        <div class="row">
-            <div class="col-3"><strong>Clasificación: </strong></div>
-            <div class="col-4">{{ producto.clasificacion }}</div>
+            <legend>Datos Migrados</legend>
+            <div class="col-9">
+                <div class="row"> 
+                    <div class="col-3"><strong>Código: </strong></div>
+                    <div class="col-4">{{ producto.codigo }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-3"><strong>Descripción: </strong></div>
+                    <div class="col-4">{{ producto.descripcion }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-3"><strong>Línea: </strong></div>
+                    <div class="col-4">{{ producto.linea }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-3"><strong>Clasificación: </strong></div>
+                    <div class="col-4">{{ producto.clasificacion }}</div>
+                </div>
+                <hr>
+            </div>
         </div>
         <br>
         <form method="post" enctype='multipart/form-data'>
             {% csrf_token %}
-            {{ form | bootstrap }}
+            <div class="row">
+                <legend>{{ form.detalle.label }}</legend>
+                {{ form.detalle }}
+            </div>
+            <br>
+            <div class="row">
+                <legend>{{ form.imagen.label }}</legend>
+                {{ form.imagen | bootstrap }}
+            </div>
+            <br>
+             <div class="row">
+                <legend>{{ form.especies.label }}</legend>
+                <div class="col-8">
+                    <div class="row">
+                    {% for checkbox in form.especies %}
+                        <div class="col-2">
+                            {{ checkbox }}
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <br>
             <input class="btn btn-info" type="submit"/>
         </form>
     </div>
-    {% load static %}
+
+   
+
+{% load static %}
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+<script type="text/javascript">
+    $( ".control-label" ).css( "display", "none" );
+</script>
+
 {% endblock %}

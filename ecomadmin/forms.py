@@ -10,5 +10,8 @@ class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto
         fields = ['detalle', 'imagen', 'especies']
-    
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        print(self.fields['imagen'].widget)
 
