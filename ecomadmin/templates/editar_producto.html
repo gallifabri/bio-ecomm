@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
-{% block encabezado %}Editar Producto:{% endblock %}
-{% load bootstrap %} 
+{% block encabezado %}Editar Producto: {{ producto.descripcion }}{% endblock %}
+{% load bootstrap %}
+{% load static %} 
 {% block contenido %}   
     <div class="container">
         <div class="row">
@@ -20,22 +21,26 @@
                 </div>
                 <div class="row">
                     <div class="col-3"><strong>Clasificación: </strong></div>
-                    <div class="col-4">{{ producto.clasificacion }}</div>
+                    <div class="col-8">{{ producto.clasificacion }}</div>
                 </div>
                 <hr>
             </div>
         </div>
-        <br>
         <form method="post" enctype='multipart/form-data'>
             {% csrf_token %}
             <div class="row">
                 <legend>{{ form.detalle.label }}</legend>
-                {{ form.detalle }}
+                <div class="col-9">
+                    {{ form.detalle }}
+                </div>
             </div>
             <br>
             <div class="row">
                 <legend>{{ form.imagen.label }}</legend>
-                {{ form.imagen | bootstrap }}
+                <div class="col-9">
+                    {{ form.imagen | bootstrap }}
+                </div>
+
             </div>
             <br>
              <div class="row">
