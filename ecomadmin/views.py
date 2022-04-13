@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.forms import modelformset_factory, inlineformset_factory, HiddenInput, BaseInlineFormSet
 
 
 # Create your views here.
@@ -62,31 +63,58 @@ def maestro_productos(request):
 
 def detalle_producto(request, pk):
 	producto = get_object_or_404(Producto, codigo=pk)
+	imagenes = ImagenProducto.objects.filter(producto=producto).exclude(imagen='')
 	presentaciones = None
 
 	if Presentacion.objects.filter(producto=producto).exists():
 		presentaciones = Presentacion.objects.filter(producto=producto)
 
-	context = {'producto': producto, 'collapse' : 'producto', 'presentaciones' : presentaciones}
+	context = {'producto': producto, 'collapse' : 'producto', 'presentaciones' : presentaciones, 'imagenes' : imagenes}
 
 	return render(request, 'detalle_producto.html', context=context)
+
+# class ImagenFormSet(BaseModelFormSet):
+#     def clean(self):
+#         super(ImagenFormSet, self).clean()
+
+#         years = []
+#         for form in self.forms:
+#             year = form.cleaned_data['year']
+#             years.append(year)
+#         if years.count(2017) > 12:
+#             raise forms.ValidationError('You selected more than 12 months for 2017')
+
+
+
 
 
 def editar_producto(request, pk):
 	producto = get_object_or_404(Producto, codigo=pk)
+	num_imgs = ImagenProducto.objects.filter(producto=producto).count()
+	ImagenFormset = inlineformset_factory(Producto, 
+											ImagenProducto, 
+											fields=('imagen',),
+											max_num=10,
+											extra=10,
+											widgets={'imagen' : ImagePreviewWidget,},
+											)
 
 	if request.method == 'POST':
 		form = ProductoForm(request.POST, request.FILES, instance=producto)
+		formset = ImagenFormset(request.POST, request.FILES, instance=producto)
 
-		if form.is_valid():
+		if form.is_valid() and formset.is_valid():
 			form.save()
+			formset.save()
 
 			return HttpResponseRedirect(reverse('detalle_producto', args=[producto.codigo]) )
 
 	else:
+		formset = ImagenFormset(instance=producto)
 		form = ProductoForm(instance=producto)
 
-	context = {'form': form, 'producto': producto}
+
+	context = {'form': form, 'producto': producto, 'formset': formset, 'count' : num_imgs}
 	
 	return render(request, 'editar_producto.html', context=context)
 

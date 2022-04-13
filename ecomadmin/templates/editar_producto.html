@@ -35,14 +35,6 @@
                 </div>
             </div>
             <br>
-            <div class="row">
-                <legend>{{ form.imagen.label }}</legend>
-                <div class="col-9">
-                    {{ form.imagen | bootstrap }}
-                </div>
-
-            </div>
-            <br>
              <div class="row">
                 <legend>{{ form.especies.label }}</legend>
                 <div class="col-8">
@@ -56,8 +48,33 @@
                 </div>
             </div>
             <br>
-            <input class="btn btn-info" type="submit"/>
+            <div class="row">
+                <legend>Imágenes</legend>
+                
+                <div class="col-9">
+                    {{ formset.management_form }}
+                    {% for imagenform in formset %}
+                            <div id="imageform_{{ forloop.counter }}" >
+                                {{ imagenform }}
+                                <hr>
+                            </div>
+                    {% endfor %}
+                    <a class="text-secondary" data-imgcount="{{ count }}" id="add_img" action="#">
+                        <i class="fas fa-fw fa-plus"></i>Agregar más fotos
+                    </a>
+                </div>
+            </div>
+            <br>
+            <div class="row" >
+                <div class="col-9" >
+                    <div style="float: right;">
+                        <input class="btn btn-info" type="submit" value="Guardar Cambios" />
+                    </div>
+                </div>
+            </div>
         </form>
+        <hr>
+    
     </div>
 
    
@@ -68,6 +85,24 @@
 
 <script type="text/javascript">
     $( ".control-label" ).css( "display", "none" );
+    var counter = $( "#add_img" ).data('imgcount')
+    hide()
+    function hide(){
+        for (let i = 0; i < 11; i++) {
+        if (i <= counter){
+            $( ("#imageform_"+i) ).css( "display", "block" );
+        }
+        else{
+            $( ("#imageform_"+i) ).css( "display", "none" );
+        }
+    }
+    }
+
+    $( "#add_img" ).click(function() {
+        counter += 1
+        hide()
+    });
+
 </script>
 
 {% endblock %}

@@ -7,6 +7,7 @@ admin.site.register(Presentacion)
 admin.site.register(GrupoProducto)
 admin.site.register(LineaProducto)
 admin.site.register(ClasificacionProducto)
+admin.site.register(ImagenProducto)
 
 class ProductoAdmin(admin.ModelAdmin):
     ordering = ['descripcion']

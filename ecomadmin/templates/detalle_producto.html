@@ -8,17 +8,23 @@
 	<br>
 	<br>
 	<div class="container">
+		<legend>{{ producto.descripcion }}</legend>
 		<div class="row">
-			<div class="col-3">
-				{% if producto.imagen %}
-					<img class="img-thumbnail" style="width: 200px" src="{{ producto.imagen.url }}" />
+			<div class="col-9">
+				{% if imagenes %}
+					{% for imagen_producto in imagenes %}
+						<img class="img-thumbnail" style="width: 200px" src="{{imagen_producto.imagen.url}}" />
+					{% endfor %}
 				{% else %}
 					<img class="img-thumbnail" style="width: 200px" src="{% static 'imagenes/product-placeholder.png' %}" />
 				{% endif %}
+				<br>
+				<hr>
 			</div>
+		</div>
+		<div class="row">
+
 			<div class="col-9">
-
-
 				<div class="row">
 					<div class="col-3"><strong>Código: </strong></div>
 					<div class="col-4">{{ producto.codigo }}</div>
@@ -70,5 +76,5 @@
 		{% endif %}
 		<br>
 		<a class="text-secondary" href="{% url 'editar_producto' pk=producto.codigo %}"><i class="fas fa-fw fa-edit text-info"></i>Editar</a>
-	</div>
+		<br><br>
 {% endblock %}

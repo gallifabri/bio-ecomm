@@ -56,7 +56,6 @@ class Producto(models.Model):
 
 	# Nuevos campos
 	detalle = RichTextField(blank=True, null=True)
-	imagen = models.ImageField(upload_to='static/imagenes/',blank=True, null=True)
 	especies = models.ManyToManyField(Especie)
 
 
@@ -65,6 +64,20 @@ class Producto(models.Model):
 
 	def __str__(self):
 		return f'{self.codigo} - {self.descripcion}'
+
+
+class ImagenProducto(models.Model):
+	imagen = models.ImageField(upload_to='static/imagenes/',blank=True, null=False)
+	producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+	uploaded = models.DateTimeField(auto_now=True)
+
+
+	class Meta:
+		ordering = ["uploaded"]
+
+	def __str__(self):
+		return f'{self.producto.descripcion} - {self.uploaded}' 
+
 
 
 class Presentacion(models.Model):
