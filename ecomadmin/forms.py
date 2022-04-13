@@ -13,7 +13,7 @@ class ImagePreviewWidget(forms.widgets.FileInput):
 		input_html = super().render(name, value, attrs=None, **kwargs)
 		if value:
 			if hasattr(value, 'url'):
-				img_html = mark_safe(f'<img style="width: 100px" src="{value.url}"/><br><br>')
+				img_html = mark_safe(f'<img style="width: 100px" src="{value.url}"/><br><br><span>Modificar: </span>')
 				return f'{img_html}{input_html}'
 		return input_html
 
