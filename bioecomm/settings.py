@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'bootstrapform',
     'ckeditor',
     'ecomadmin.apps.EcomadminConfig',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [

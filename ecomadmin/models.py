@@ -79,6 +79,9 @@ class ImagenProducto(models.Model):
 		return f'{self.producto.descripcion} - {self.uploaded}' 
 
 
+	
+
+
 
 class Presentacion(models.Model):
 	producto = models.ForeignKey(Producto, on_delete=models.SET_NULL, null=True)
