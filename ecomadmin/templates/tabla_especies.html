@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block encabezado %}Tablas: Especies{% endblock %}
+{% block header %}
+<link href="/static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+{% endblock %}
+{% block contenido %}
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+     		<a class="text-secondary" href="{% url 'tabla_especies_crear' %}"><i class="fas fa-fw fa-plus"></i></a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+	            {% if especies %}
+		            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<thead>
+					    	<tr>
+					      		<th>Descripción</th>
+					      	</tr>
+					    </thead>
+				      	<tbody>
+								{% for especie in especies %}
+									<tr>
+
+										<td>
+											<div style="float:left">{{ especie.descripcion }}</div>
+											<div style="float:right">
+												<a class="text-secondary" href="{% url 'tabla_especies_editar' pk=especie.pk %}">
+													<i class="fas fa-fw fa-edit"></i>
+												</a>
+												<a class="text-secondary" href="{% url 'tabla_especies_eliminar' pk=especie.pk %}">
+													<i class="fas fa-fw fa-trash"></i>
+												</a>
+											</div>
+										</td>
+									</tr>
+								{% endfor %}
+						</tbody>
+					</table>
+				{% else %}
+				<h6>No hay registros.</h6>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% block endbody %}
+
+<!-- Page level plugins -->
+<script src="/static/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="/static/js/demo/datatables-demo.js"></script>
+
+<script type="text/javascript" src="/static/Scripts/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/static/Scripts/bootstrap.min.js"></script>
+
+{% endblock %}
+{% endblock %}
+
