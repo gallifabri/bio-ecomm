@@ -20,10 +20,10 @@ class ImagePreviewWidget(forms.widgets.FileInput):
 
 class ProductoForm(forms.ModelForm):
 	especies = forms.ModelMultipleChoiceField(Especie.objects.all(), widget=forms.CheckboxSelectMultiple)
-
+	subcategoria = forms.ModelMultipleChoiceField(Subcategoria.objects.all(), widget=forms.CheckboxSelectMultiple)
 	class Meta:
 		model = Producto
-		fields = ['detalle', 'especies']
+		fields = ['detalle', 'especies', 'subcategoria']
 		widgets = {
 		}
 

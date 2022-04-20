@@ -170,3 +170,33 @@ class EspecieDeleteView(DeleteView):
 	success_url = reverse_lazy('tabla_especies')
 	context = {'collapse' : 'tablas'}
 	template_name = "especie_confirm_delete.html"
+
+
+def tabla_subcategoria(request):
+	subcategoria = Subcategoria.objects.all().order_by('descripcion')
+	context = {'subcategoria' : subcategoria, 'collapse' : 'tablas'}
+
+	return render(request, 'tabla_subcategoria.html', context=context)
+
+
+class SubcategoriaCreateView(CreateView):
+	model = Subcategoria
+	fields = ['descripcion']
+	context = {'collapse' : 'tablas'}
+	template_name = "subcategoria_form.html"
+
+
+class SubcategoriaUpdateView(UpdateView):
+	model = Subcategoria
+	fields = ['descripcion']
+	template_name_suffix = '_update_form'
+	context = {'collapse' : 'tablas'}
+	template_name = "subcategoria_update_form.html"
+	success_url = reverse_lazy('tabla_subcategoria')
+
+  
+class SubcategoriaDeleteView(DeleteView):
+	model = Subcategoria
+	success_url = reverse_lazy('tabla_subcategoria')
+	context = {'collapse' : 'tablas'}
+	template_name = "subcategoria_confirm_delete.html"

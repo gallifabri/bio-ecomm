@@ -48,6 +48,7 @@ def cargar_tabla_formula():
 	Producto.objects.all().delete()
 
 	for record in DBF('tablas/formucab.dbf'):
+
 		nuevo_producto_generico = Producto.objects.create(codigo=record['CODFORMULA'])
 		nuevo_producto_generico.codigo_formula = record['CODFORMULA']
 		nuevo_producto_generico.descripcion = record['DESCFORMU']

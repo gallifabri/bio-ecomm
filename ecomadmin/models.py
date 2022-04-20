@@ -40,6 +40,19 @@ class Especie(models.Model):
 		ordering = ["descripcion"]
 
 
+class Subcategoria(models.Model):
+	descripcion = models.CharField(max_length=100, unique=True)
+
+	def get_absolute_url(self):
+		return f"subcategoria"
+
+	def __str__(self):
+		return self.descripcion
+
+	class Meta:
+		ordering = ["descripcion"]
+
+
 class Producto(models.Model):
 	"""
 	Crear campos:
@@ -47,7 +60,14 @@ class Producto(models.Model):
 		descripcion_corta
 		categoria
 		subcategoria (puede ser varios, igual que especies)
-	"""    
+	"""   
+	categoria = models.CharField(max_length=200)
+	subcategoria = models.ManyToManyField(Subcategoria)
+
+
+	def subcategoria_cs(self):
+		return ", ".join([str(subcategoria) for subcategoria in self.subcategoria.all()])
+		
 	# Campos migrados de VFP
 	codigo = models.CharField(max_length=3, validators=[MinLengthValidator(3)], primary_key=True)
 	descripcion = models.CharField(max_length=200)

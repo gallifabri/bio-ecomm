@@ -18,4 +18,8 @@ urlpatterns = [
     path('tablas/crear', views.EspecieCreateView.as_view(), name='tabla_especies_crear'),
     path('tablas/editar/<str:pk>', views.EspecieUpdateView.as_view(), name='tabla_especies_editar'),
     path('tablas/eliminar/<str:pk>', views.EspecieDeleteView.as_view(), name='tabla_especies_eliminar'),
+    path('tablas/subcategoria', views.tabla_subcategoria, name='tabla_subcategoria'),
+    path('tablas/crear_subcategoria', views.SubcategoriaCreateView.as_view(), name='tabla_subcategoria_crear'),
+    path('tablas/editar_subcategoria/<str:pk>', views.SubcategoriaUpdateView.as_view(), name='tabla_subcategoria_editar'),
+    path('tablas/eliminar_subcategoria/<str:pk>', views.SubcategoriaDeleteView.as_view(), name='tabla_subcategoria_eliminar'),
 ]
